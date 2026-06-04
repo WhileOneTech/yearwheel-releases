@@ -25,8 +25,8 @@ function detectOS() {
 // --- Classify a release asset by filename ----------------------------------------
 function classify(name) {
   const n = name.toLowerCase();
-  if (n.endsWith("-setup.exe")) return { os: "windows", kind: "Installer (.exe)", weight: 1 };
-  if (n.endsWith(".msi")) return { os: "windows", kind: "Installer (.msi)", weight: 2 };
+  if (n.endsWith(".msi")) return { os: "windows", kind: "Installer (.msi)", weight: 1 };
+  if (n.endsWith("-setup.exe")) return { os: "windows", kind: "Installer (.exe)", weight: 2 };
   if (n.endsWith(".dmg")) {
     const arch = /(aarch64|arm64)/.test(n) ? "aarch64" : /(x64|x86_64|intel)/.test(n) ? "x64" : "";
     return { os: "macos", arch, kind: `Disk image (.dmg)${arch ? " · " + (arch === "aarch64" ? "Apple Silicon" : "Intel") : ""}`, weight: arch === "aarch64" ? 1 : 2 };
