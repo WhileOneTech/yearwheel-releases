@@ -50,6 +50,7 @@ async function init() {
   const primaryLabel = document.getElementById("primary-download-label");
   const versionPill = document.getElementById("version-pill");
   const list = document.getElementById("downloads-list");
+  const secondaryDownload = document.getElementById("secondary-download");
 
   let release;
   try {
@@ -89,9 +90,16 @@ async function init() {
 
   if (forMe.length > 0) {
     const best = forMe[0];
+    const exe = me.os === "windows"
+      ? forMe.find((a) => a.name.toLowerCase().endsWith("-setup.exe"))
+      : null;
     primaryBtn.href = best.browser_download_url;
-    primaryLabel.textContent = `Download for ${me.label}`;
+    primaryLabel.textContent = me.os === "windows" ? "Download MSI for Windows" : `Download for ${me.label}`;
     osNote.textContent = `Detected ${me.label}. ${best.info.kind}${best.size ? " · " + fmtSize(best.size) : ""}.`;
+    if (exe && secondaryDownload) {
+      secondaryDownload.innerHTML = `Need the EXE instead? <a href="${exe.browser_download_url}">Download EXE</a>.`;
+      secondaryDownload.hidden = false;
+    }
   } else {
     primaryBtn.href = release.html_url || RELEASES_LATEST;
     primaryLabel.textContent = "Choose a download";

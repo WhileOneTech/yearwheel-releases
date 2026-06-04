@@ -113,6 +113,14 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
 
 .os-note { color: var(--muted); font-size: 0.95rem; margin: 6px 0 22px; }
 
+.secondary-download {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: -14px 0 22px;
+}
+.secondary-download a { color: #b7c4ff; }
+.secondary-download a:hover { color: var(--text); }
+
 .all-downloads { border-top: 1px solid var(--border); padding-top: 14px; max-width: 520px; }
 .all-downloads summary { cursor: pointer; color: var(--muted); font-size: 0.95rem; }
 .all-downloads summary:hover { color: var(--text); }
