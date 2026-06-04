@@ -96,10 +96,6 @@ jobs:
           prerelease: ${{ contains(steps.meta.outputs.tag, '-') }}
           fail_on_unmatched_files: false
 
-  deploy-pages:
-    needs: publish
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    uses: ./.github/workflows/pages.yml
+# Note: the download site (docs/) is served by GitHub Pages "Deploy from a branch"
+# (main /docs) and rebuilds automatically on push. The page reads the latest release
+# live via the GitHub API, so a new release shows up without any Pages redeploy.

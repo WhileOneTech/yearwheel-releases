@@ -7,8 +7,10 @@ this repo turns those artifacts into a public, auto-updating release.
 ## One-time setup
 
 ### 1. Enable GitHub Pages
-**Settings → Pages → Build and deployment → Source: _GitHub Actions_.**
-The site (`docs/`) deploys at `https://whileonetech.github.io/yearwheel-releases/`.
+**Settings → Pages → Build and deployment → Source: _Deploy from a branch_ → Branch: `main` / `/docs`.**
+The site deploys at `https://whileonetech.github.io/yearwheel-releases/` and rebuilds automatically
+on every push to `docs/`. A `.nojekyll` file keeps the assets served as-is. The page reads the
+latest release live via the GitHub API, so cutting a release needs **no** Pages redeploy.
 
 ### 2. Add the cross-repo token
 The release workflow downloads the freshly built artifacts from the private source repo.
@@ -68,11 +70,27 @@ The artifacts the updater needs, per platform:
    The [Release workflow](.github/workflows/release.yml) then:
    - downloads the signed artifacts from the source repo,
    - generates `latest.json` ([`scripts/generate-latest-json.mjs`](scripts/generate-latest-json.mjs)),
-   - publishes the GitHub Release with all assets + your notes,
-   - redeploys the download site.
+   - publishes the GitHub Release with all assets + your notes.
 
-   Prefer not to tag from your machine? Run the workflow manually from the **Actions** tab and
-   pass the tag as input.
+   The download site picks up the new release automatically (it queries the API at load), so there's
+   nothing else to deploy. Prefer not to tag from your machine? Run the workflow manually from the
+   **Actions** tab and pass the tag as input.
+
+### Alternative: publish directly with `gh` (no cross-repo token)
+
+For a one-off — or when you already have the built installers locally — skip the workflow entirely:
+
+```bash
+gh release create vX.Y.Z \
+  --repo WhileOneTech/yearwheel-releases \
+  --title "YearWheel vX.Y.Z" \
+  --notes-file releases/notes/vX.Y.Z.md \
+  path/to/installer.exe path/to/installer.msi
+```
+
+If the build is signed, also generate and attach `latest.json`
+(`node scripts/generate-latest-json.mjs --dir <folder> --tag vX.Y.Z`). This is how `v2026.6.4`
+(Windows, installers-only) was published.
 
 ## Verifying a release
 
