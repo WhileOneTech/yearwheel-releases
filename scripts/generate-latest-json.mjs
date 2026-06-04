@@ -99,8 +99,11 @@ for (const sig of sigFiles) {
 }
 
 if (Object.keys(platforms).length === 0) {
-  console.error(`error: no updater bundles found in "${dir}". Expected signed .app.tar.gz / .AppImage / -setup.exe / .msi artifacts with matching .sig files.`);
-  process.exit(1);
+  // No signed updater bundles — e.g. the app isn't wired for auto-update yet, or this
+  // build was produced without TAURI_SIGNING_PRIVATE_KEY. This is not fatal: we simply
+  // don't emit a manifest, so an installers-only release can still be published.
+  console.warn(`note: no signed updater bundles (.sig) found in "${dir}" — skipping ${outPath}. Auto-update will be unavailable for this release.`);
+  process.exit(0);
 }
 
 const manifest = {

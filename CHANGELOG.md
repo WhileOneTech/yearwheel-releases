@@ -24,12 +24,15 @@ Each release groups changes under: Added, Changed, Deprecated, Removed, Fixed, S
 
 ### Fixed
 
-<!--
-## [1.0.0] - 2026-01-01
+## [2026.6.4] - 2026-06-04
+
+First public release. Windows only; automatic updates not yet enabled.
 
 ### Added
-- Initial public release of YearWheel.
--->
 
-[Unreleased]: https://github.com/WhileOneTech/yearwheel-releases/compare/HEAD
-<!-- [1.0.0]: https://github.com/WhileOneTech/yearwheel-releases/releases/tag/v1.0.0 -->
+- Initial public release of YearWheel — plan and visualise the year on a circular calendar.
+- Colour-coded rings and categories for organising events.
+- Windows installers: NSIS (`…_x64-setup.exe`) and MSI (`…_x64_en-US.msi`).
+
+[Unreleased]: https://github.com/WhileOneTech/yearwheel-releases/compare/v2026.6.4...HEAD
+[2026.6.4]: https://github.com/WhileOneTech/yearwheel-releases/releases/tag/v2026.6.4
