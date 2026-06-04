@@ -1,0 +1,13 @@
+# Local preview / editor tooling
+.claude/
+
+# Build & release artifacts (generated during the release workflow)
+dist/
+*.sig
+
+# Node
+node_modules/
+
+# OS cruft
+.DS_Store
+Thumbs.db

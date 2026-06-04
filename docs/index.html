@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YearWheel — Plan your whole year on one wheel</title>
+    <meta
+      name="description"
+      content="YearWheel is a desktop app that lays your entire year out as a circular calendar. Download for Windows, macOS, and Linux."
+    />
+    <meta name="theme-color" content="#4f46e5" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="YearWheel" />
+    <meta
+      property="og:description"
+      content="Plan and visualise your entire year on a single circular calendar."
+    />
+    <meta property="og:url" content="https://whileonetech.github.io/yearwheel-releases/" />
+
+    <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <a class="brand" href="/yearwheel-releases/">
+          <img class="brand-mark" src="assets/wheel-mark.svg" alt="" aria-hidden="true" width="26" height="26" />
+          <span>YearWheel</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#download">Download</a>
+          <a href="https://github.com/WhileOneTech/yearwheel-releases/releases">Releases</a>
+          <a href="https://github.com/WhileOneTech/yearwheel-releases/blob/main/CHANGELOG.md">Changelog</a>
+        </div>
+      </nav>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>See your whole year at a glance.</h1>
+          <p class="lede">
+            YearWheel lays the entire year out as a circular calendar, so seasons, projects,
+            campaigns and events are visible all at once — not buried across twelve months.
+          </p>
+
+          <div class="cta" id="download">
+            <a class="btn btn-primary" id="primary-download" href="https://github.com/WhileOneTech/yearwheel-releases/releases/latest">
+              <span id="primary-download-label">Download YearWheel</span>
+            </a>
+            <span class="version-pill" id="version-pill" hidden></span>
+          </div>
+
+          <p class="os-note" id="os-note">Detecting your operating system…</p>
+
+          <details class="all-downloads">
+            <summary>All platforms &amp; downloads</summary>
+            <ul id="downloads-list" class="downloads-list">
+              <li class="muted">Loading the latest release…</li>
+            </ul>
+            <p class="fallback">
+              Can't find what you need? Browse
+              <a href="https://github.com/WhileOneTech/yearwheel-releases/releases/latest">every asset on the latest release</a>.
+            </p>
+          </details>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <img class="wheel" src="assets/wheel-mark.svg" alt="YearWheel logo" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="features" class="features">
+        <h2>Built for annual planning</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>🌀 The big picture</h3>
+            <p>One circular view of all 12 months — spot overlaps, gaps and seasonal rhythm instantly.</p>
+          </article>
+          <article class="card">
+            <h3>🎨 Make it yours</h3>
+            <p>Colour-coded rings and categories for campaigns, teams, terms, or personal goals.</p>
+          </article>
+          <article class="card">
+            <h3>🖥️ Native desktop app</h3>
+            <p>Fast and lightweight on Windows, macOS and Linux. Your data stays on your machine.</p>
+          </article>
+          <article class="card">
+            <h3>🔄 Always up to date</h3>
+            <p>Automatic, signed updates — YearWheel quietly keeps itself current between releases.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="updates">
+        <h2>Automatic updates</h2>
+        <p>
+          Once installed, YearWheel checks for new versions and updates itself on the next restart.
+          Updates are cryptographically signed and verified before they are applied, so you always
+          get an authentic build straight from this release feed.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        YearWheel by
+        <a href="https://github.com/WhileOneTech">WhileOneTech</a>
+        · <a href="https://github.com/WhileOneTech/yearwheel-releases/issues">Report an issue</a>
+        · <a href="https://github.com/WhileOneTech/yearwheel-releases">Release repository</a>
+      </p>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

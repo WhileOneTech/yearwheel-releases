@@ -1,0 +1,105 @@
+name: Release
+
+# Publishes a YearWheel release on this public repo:
+#   1. Pulls the signed build artifacts (built by Tauri in the private source repo).
+#   2. Generates the Tauri updater manifest (latest.json) from the artifacts' .sig files.
+#   3. Creates/updates the GitHub Release with all assets + release notes.
+#   4. Redeploys the download website (GitHub Pages).
+#
+# Trigger by pushing a tag (e.g. `git tag v1.2.3 && git push origin v1.2.3`),
+# or run manually from the Actions tab with a tag input.
+#
+# Required repository secret:
+#   SOURCE_REPO_TOKEN — a token with `contents:read` on WhileOneTech/yearwheel2,
+#                       used to download that repo's build artifacts for the tag.
+#                       Remove the download step if you attach artifacts to this repo directly.
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to (re)publish, e.g. v1.2.3"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve tag and version
+        id: meta
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=$TAG"             >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}"     >> "$GITHUB_OUTPUT"
+          echo "Releasing $TAG"
+
+      - name: Download build artifacts from source repo
+        env:
+          GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+        run: |
+          mkdir -p dist
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::SOURCE_REPO_TOKEN not set — skipping cross-repo download. Attach artifacts to this repo's release manually."
+          else
+            gh release download "${{ steps.meta.outputs.tag }}" \
+              --repo WhileOneTech/yearwheel2 \
+              --dir dist \
+              --pattern "*" \
+            || echo "::warning::No artifacts found for ${{ steps.meta.outputs.tag }} in the source repo."
+          fi
+          echo "Artifacts:" && ls -la dist || true
+
+      - name: Generate Tauri updater manifest (latest.json)
+        run: |
+          node scripts/generate-latest-json.mjs \
+            --dir dist \
+            --tag "${{ steps.meta.outputs.tag }}" \
+            --repo "${{ github.repository }}" \
+            --out dist/latest.json
+
+      - name: Resolve release notes
+        id: notes
+        run: |
+          NOTES_FILE="releases/notes/${{ steps.meta.outputs.tag }}.md"
+          if [ -f "$NOTES_FILE" ]; then
+            echo "Using notes from $NOTES_FILE"
+            echo "path=$NOTES_FILE" >> "$GITHUB_OUTPUT"
+            echo "autogen=false"    >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No notes file at $NOTES_FILE — GitHub will auto-generate release notes."
+            echo "path="          >> "$GITHUB_OUTPUT"
+            echo "autogen=true"   >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: YearWheel ${{ steps.meta.outputs.tag }}
+          body_path: ${{ steps.notes.outputs.path }}
+          generate_release_notes: ${{ steps.notes.outputs.autogen }}
+          files: dist/*
+          draft: false
+          prerelease: ${{ contains(steps.meta.outputs.tag, '-') }}
+          fail_on_unmatched_files: false
+
+  deploy-pages:
+    needs: publish
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
