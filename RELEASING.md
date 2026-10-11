@@ -10,7 +10,10 @@ this repo turns those artifacts into a public, auto-updating release.
 **Settings → Pages → Build and deployment → Source: _Deploy from a branch_ → Branch: `main` / `/docs`.**
 The site deploys at `https://whileonetech.github.io/yearwheel-releases/` and rebuilds automatically
 on every push to `docs/`. A `.nojekyll` file keeps the assets served as-is. The page reads the
-latest release live via the GitHub API, so cutting a release needs **no** Pages redeploy.
+releases live via the GitHub API, so cutting a release needs **no** Pages redeploy. Each platform
+is served from the newest published release that has a build for it, so a single-platform release
+(e.g. `v2026.10.11`, macOS only, not marked Latest) updates that platform's download without
+taking the others' away.
 
 ### 2. Add the cross-repo token
 The release workflow downloads the freshly built artifacts from the private source repo.
