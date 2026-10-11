@@ -24,6 +24,15 @@ Each release groups changes under: Added, Changed, Deprecated, Removed, Fixed, S
 
 ### Fixed
 
+## [2026.10.11.2] - 2026-10-11
+
+macOS fix release. macOS only; Windows and Linux stay on 2026.6.4. Automatic updates not yet enabled.
+
+### Fixed
+
+- One-day events without an icon are drawn as a single day line, without an extra arc stub.
+- Events lasting a few days are drawn as their real span, no longer with a one-day line on top.
+
 ## [2026.10.11] - 2026-10-11
 
 First macOS release (Apple Silicon and Intel). macOS only; Windows and Linux stay on 2026.6.4.
@@ -60,6 +69,7 @@ First public release. Windows only; automatic updates not yet enabled.
 - Colour-coded rings and categories for organising events.
 - Windows installers: NSIS (`…_x64-setup.exe`) and MSI (`…_x64_en-US.msi`).
 
-[Unreleased]: https://github.com/WhileOneTech/yearwheel-releases/compare/v2026.10.11...HEAD
+[Unreleased]: https://github.com/WhileOneTech/yearwheel-releases/compare/v2026.10.11.2...HEAD
+[2026.10.11.2]: https://github.com/WhileOneTech/yearwheel-releases/releases/tag/v2026.10.11.2
 [2026.10.11]: https://github.com/WhileOneTech/yearwheel-releases/releases/tag/v2026.10.11
 [2026.6.4]: https://github.com/WhileOneTech/yearwheel-releases/releases/tag/v2026.6.4
