@@ -19,7 +19,7 @@
 
 > [!NOTE]
 > This is the **public release repository** for YearWheel. It hosts the downloadable installers,
-> the auto-update manifest, release notes, and the download website. The application source
+> release notes, and the download website. The application source
 > code lives in a separate, private repository.
 
 ## What is YearWheel?
@@ -39,26 +39,24 @@ operating system automatically:
 
 ### 👉 **https://whileonetech.github.io/yearwheel-releases/**
 
-Or grab a specific installer directly from the [latest release](https://github.com/WhileOneTech/yearwheel-releases/releases/latest):
+Or grab a specific installer from the [Releases page](https://github.com/WhileOneTech/yearwheel-releases/releases).
+Platforms don't always ship together, so the newest build for your system may be in a release
+other than the one marked *Latest* — the download page always picks the newest one for you.
 
 | Platform | File | Notes |
 | --- | --- | --- |
-| **Windows** | `…_x64-setup.exe` | Recommended installer (NSIS). Also available as `.msi`. |
-| **macOS (Apple Silicon)** | `…_aarch64.dmg` | For M1/M2/M3/M4 Macs. |
-| **macOS (Intel)** | `…_x64.dmg` | For older Intel Macs. |
-| **Linux** | `…_amd64.AppImage` | Portable — `chmod +x` and run. `.deb` also provided. |
+| **Windows** | `…_x64_en-US.msi` | Recommended installer. Also available as `…_x64-setup.exe`. |
+| **macOS** (Apple Silicon & Intel) | `…-macOS-universal.zip` | Recommended: the app, an install script and an installation guide. A `.dmg` is also provided. |
+| **Linux** | `…_amd64.AppImage` | Portable — `chmod +x` and run. `.deb` and `.rpm` also provided. |
 
 > YearWheel targets **Windows** first, but is built and tested on macOS and Linux too.
 
-## Automatic updates
+## Updating
 
-YearWheel updates itself. The app periodically checks the updater manifest published with each
-release and, when a newer version is available, downloads and installs it on the next restart —
-no manual reinstall needed.
-
-- **Update feed:** [`releases/latest/download/latest.json`](https://github.com/WhileOneTech/yearwheel-releases/releases/latest/download/latest.json)
-- Built on the [Tauri v2 updater](https://v2.tauri.app/plugin/updater/); update packages are
-  cryptographically signed and verified before they are applied.
+YearWheel doesn't update itself yet. To get a new version, download it from the
+[download page](https://whileonetech.github.io/yearwheel-releases/) and install it over the one
+you have, the same way you installed it the first time. Your plans are ordinary `.yearwheel`
+files on your computer, so they stay exactly where they are.
 
 ## Installation notes
 
@@ -73,10 +71,18 @@ Run anyway** to continue. Prefer a system-wide MSI deployment? Use the `.msi` as
 <details>
 <summary><strong>macOS</strong></summary>
 
-Open the `.dmg` and drag **YearWheel** to your Applications folder. If macOS reports the app
-*"cannot be opened because the developer cannot be verified"*, right-click the app → **Open**,
-or allow it under **System Settings → Privacy & Security**. Pick the `aarch64` build for Apple
-Silicon and the `x64` build for Intel Macs.
+YearWheel isn't notarised by Apple yet, so macOS blocks a downloaded copy or calls it
+*"damaged"*. The `…-macOS-universal.zip` download takes care of this; it runs on both Apple
+Silicon and Intel Macs.
+
+1. Double-click the zip in Downloads to unpack it.
+2. Open **Terminal**, type `bash ` (with a space after it) and drag `install-yearwheel.command`
+   from the unpacked folder into the window, then press Return.
+3. The script copies YearWheel to Applications, clears the download block, and opens the app.
+
+The zip also contains an installation guide (PDF, Swedish and English) with the same steps and
+an alternative for when you'd rather double-click the script. To update, do the same with the
+new version.
 </details>
 
 <details>

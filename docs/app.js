@@ -115,7 +115,7 @@ async function init() {
     primaryLabel.textContent = me.os === "windows" ? "Download MSI for Windows" : `Download for ${me.label}`;
     osNote.textContent = `Detected ${me.label}. ${best.info.kind}${best.size ? " · " + fmtSize(best.size) : ""}.`;
     if (best.name.toLowerCase().endsWith(".zip")) {
-      osNote.textContent += " Unzip it and double-click install-yearwheel.command.";
+      osNote.textContent += " Unzip it and follow the installation guide inside.";
     }
     if (exe && secondaryDownload) {
       secondaryDownload.innerHTML = `Need the EXE instead? <a href="${exe.browser_download_url}">Download EXE</a>.`;
